@@ -1,0 +1,9 @@
+---
+db_address: mongodb:27017
+db_name: auth
+db_user_collection: user
+db_token_collection: token
+
+token_signature: 2VJnduu37j21lk68m2k4829b46HBB2o23jndqqi00
+token_issuer: https://api.alesr.me
+...

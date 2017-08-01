@@ -1,0 +1,5 @@
+# MONGODB data
+data/
+
+# macOS
+.DS_Store

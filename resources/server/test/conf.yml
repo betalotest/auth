@@ -1,0 +1,9 @@
+---
+# db_address: mongodbtest:28018
+# db_name: auth
+# db_user_collection: user
+# db_token_collection: token
+
+# token_signature: foobar
+# token_issuer: tester
+...

@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  test:
+    container_name: auth-server-test
+    image: alesr/betalotest-auth-server-test
+    networks:
+      - betaloauthnet
+    build:
+      context: .
+      dockerfile: resources/server/test/Dockerfile
+
+  server:
+    container_name: auth-server
+    image: alesr/betalotest-auth-server
+    networks:
+      - betaloauthnet
+    build:
+      context: .
+      dockerfile: resources/server/prod/Dockerfile
+
+  mongodb:
+    container_name: auth-db
+    image: mongo:3.4
+    networks:
+      - betaloauthnet
+    environment:
+      - MONGO_DATA_DIR=/data/db
+    volumes:
+      - ./data/db:/data/db
+    command: mongod --smallfiles
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+
+  nginx:
+    container_name: auth-nginx
+    image: alesr/betalotest-auth-nginx
+    ports:
+      - "80:80"
+    links:
+      - server:server
+    depends_on:
+      - server
+    networks:
+      - betaloauthnet
+    build:
+      context: .
+      dockerfile: resources/nginx/Dockerfile
+
+networks:
+  betaloauthnet:
